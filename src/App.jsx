@@ -6,7 +6,6 @@ function App() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [id, setId] = useState(0);
-  const [isDone, setDone] = useState(false);
   const [list, setList] = useState([initialState]);
 
   const addTodo = (e) => {
@@ -20,7 +19,7 @@ function App() {
     }
     e.target[0].value = "";
     e.target[1].value = "";
-    setList([...list, { id, title, body, isDone }]);
+    setList([...list, { id, title, body, isDone: false }]);
     setId(id + 1);
   };
 
@@ -38,6 +37,12 @@ function App() {
     });
     setList([...item, { id, title, body, isDone: !isDone }]);
   };
+  const workingList = list.filter(({ isDone }) => {
+    return !isDone;
+  });
+  const doneList = list.filter(({ isDone }) => {
+    return isDone;
+  });
 
   return (
     <div
@@ -104,48 +109,17 @@ function App() {
           justifyContent: "start",
         }}
       >
-        {list
-          .filter(({ isDone }) => {
-            return !isDone;
-          })
-          .map(({ id, title, body, isDone }) => {
-            return (
-              <>
-                <li
-                  style={{
-                    width: "20%",
-                    textAlign: "center",
-                    border: "2px solid white",
-                    margin: "10px",
-                  }}
-                  key={"id" + id}
-                >
-                  <h3 style={{ marginTop: "5px" }}>{title}</h3>
-                  <p>{body}</p>
-                  <span>{isDone}</span>
-                  <button
-                    style={{ width: "50%" }}
-                    onClick={() => {
-                      deleteTodo(id);
-                    }}
-                  >
-                    삭제하기
-                  </button>
-                  <button
-                    style={{ width: "50%" }}
-                    onClick={() => {
-                      changeDone(id, title, body, isDone);
-                    }}
-                  >
-                    {isDone ? "취소" : "완료"}
-                  </button>
-                </li>
-              </>
-            );
-          })}
+        <MakeList
+          list={workingList}
+          deleteTodo={deleteTodo}
+          changeDone={changeDone}
+        >
+          {" "}
+        </MakeList>
       </ul>
 
       <h3> Done..!</h3>
+
       <ul
         style={{
           width: "100%",
@@ -156,48 +130,51 @@ function App() {
           justifyContent: "start",
         }}
       >
-        {list
-          .filter(({ isDone }) => {
-            return isDone;
-          })
-          .map(({ id, title, body, isDone }) => {
-            return (
-              <>
-                <li
-                  style={{
-                    width: "20%",
-                    textAlign: "center",
-                    border: "2px solid white",
-                    margin: "10px",
-                  }}
-                  key={"id" + id}
-                >
-                  <h3 style={{ marginTop: "5px" }}>{title}</h3>
-                  <p>{body}</p>
-                  <span>{isDone}</span>
-                  <button
-                    style={{ width: "50%" }}
-                    onClick={() => {
-                      deleteTodo(id);
-                    }}
-                  >
-                    삭제하기
-                  </button>
-                  <button
-                    style={{ width: "50%" }}
-                    onClick={() => {
-                      changeDone(id, title, body, isDone);
-                    }}
-                  >
-                    {isDone ? "취소" : "완료"}
-                  </button>
-                </li>
-              </>
-            );
-          })}
+        <MakeList
+          list={doneList}
+          deleteTodo={deleteTodo}
+          changeDone={changeDone}
+        />
       </ul>
     </div>
   );
 }
 
+function MakeList({ list, deleteTodo, changeDone }) {
+  return list.map(({ id, title, body, isDone }) => {
+    return (
+      <>
+        <li
+          style={{
+            width: "20%",
+            textAlign: "center",
+            border: "2px solid white",
+            margin: "10px",
+          }}
+          key={"list" + id}
+        >
+          <h3 style={{ marginTop: "5px" }}>{title}</h3>
+          <p>{body}</p>
+          <span>{isDone}</span>
+          <button
+            style={{ width: "50%" }}
+            onClick={() => {
+              deleteTodo(id);
+            }}
+          >
+            삭제하기
+          </button>
+          <button
+            style={{ width: "50%" }}
+            onClick={() => {
+              changeDone(id, title, body, isDone);
+            }}
+          >
+            {isDone ? "취소" : "완료"}
+          </button>
+        </li>
+      </>
+    );
+  });
+}
 export default App;
