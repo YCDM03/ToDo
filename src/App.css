@@ -1,0 +1,16 @@
+* {
+  color: white;
+}
+
+button {
+  border: 1px solid white;
+  background-color: #678dab;
+}
+button:hover {
+  border: 1px solid white;
+  background-color: #1a4568;
+}
+button:active {
+  border: 1px solid white;
+  background-color: #678dab;
+}
