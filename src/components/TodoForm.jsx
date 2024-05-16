@@ -37,9 +37,6 @@ export default function TodoForm() {
   };
 
   const deleteTodo = (id) => {
-    if (!id) {
-      return;
-    }
     setList(
       list.filter((e) => {
         return e.id !== id;
