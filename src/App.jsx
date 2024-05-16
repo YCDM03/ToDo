@@ -165,7 +165,7 @@ function MakeList({ list, deleteTodo, changeDone }) {
               삭제하기
             </button>
             <button
-              style={{ width: "50%", marginTop: "auto" }}
+              style={{ width: "50%" }}
               onClick={() => {
                 changeDone(id, title, body, isDone);
               }}
