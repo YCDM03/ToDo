@@ -26,7 +26,7 @@ export default function MakeItem({ list, deleteTodo, changeDone }) {
           <button
             style={{ width: "50%" }}
             onClick={() => {
-              changeDone({ id, title, body, isDone });
+              changeDone(id, title, body, isDone);
             }}
           >
             {isDone ? "취소" : "완료"}

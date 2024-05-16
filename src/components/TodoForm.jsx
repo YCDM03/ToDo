@@ -2,12 +2,11 @@ import { useState } from "react";
 import MakeItem from "./MakeItem";
 
 export default function TodoForm() {
+  const initial = { id: -1, title: "test", body: "test", isDone: false };
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [id, setId] = useState(0);
-  const [list, setList] = useState([
-    { id: -1, title: "test", body: "test", isDone: false },
-  ]);
+  const [list, setList] = useState([initial]);
   const subtitles = ["Working", "Done"];
 
   //style
