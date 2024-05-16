@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const initialState = { id: -1, title: "test", body: "test", isDone: true };
+  const initialState = { id: -1, title: "test", body: "test", isDone: false };
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [id, setId] = useState(0);
@@ -150,28 +150,31 @@ function MakeList({ list, deleteTodo, changeDone }) {
             textAlign: "center",
             border: "2px solid white",
             margin: "10px",
+            display: "flex",
+            flexDirection: "column",
           }}
           key={"list" + id}
         >
           <h3 style={{ marginTop: "5px" }}>{title}</h3>
           <p>{body}</p>
-          <span>{isDone}</span>
-          <button
-            style={{ width: "50%" }}
-            onClick={() => {
-              deleteTodo(id);
-            }}
-          >
-            삭제하기
-          </button>
-          <button
-            style={{ width: "50%" }}
-            onClick={() => {
-              changeDone(id, title, body, isDone);
-            }}
-          >
-            {isDone ? "취소" : "완료"}
-          </button>
+          <div style={{ width: "100%", marginTop: "auto" }}>
+            <button
+              style={{ width: "50%" }}
+              onClick={() => {
+                deleteTodo(id);
+              }}
+            >
+              삭제하기
+            </button>
+            <button
+              style={{ width: "50%", marginTop: "auto" }}
+              onClick={() => {
+                changeDone(id, title, body, isDone);
+              }}
+            >
+              {isDone ? "취소" : "완료"}
+            </button>
+          </div>
         </li>
       </>
     );
