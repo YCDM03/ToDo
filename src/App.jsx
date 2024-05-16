@@ -37,12 +37,6 @@ function App() {
     });
     setList([...item, { id, title, body, isDone: !isDone }]);
   };
-  const workingList = list.filter(({ isDone }) => {
-    return !isDone;
-  });
-  const doneList = list.filter(({ isDone }) => {
-    return isDone;
-  });
 
   return (
     <div
@@ -110,7 +104,9 @@ function App() {
         }}
       >
         <MakeList
-          list={workingList}
+          list={list.filter(({ isDone }) => {
+            return !isDone;
+          })}
           deleteTodo={deleteTodo}
           changeDone={changeDone}
         >
@@ -131,7 +127,9 @@ function App() {
         }}
       >
         <MakeList
-          list={doneList}
+          list={list.filter(({ isDone }) => {
+            return isDone;
+          })}
           deleteTodo={deleteTodo}
           changeDone={changeDone}
         />
