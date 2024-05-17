@@ -1,10 +1,6 @@
-import { useState } from "react";
-import MakeList from "./MakeList";
 import { v4 as uuidv4 } from "uuid";
 
-export default function TodoForm() {
-  const [list, setList] = useState([]);
-
+export default function TodoForm({ list, setList }) {
   const addTodo = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -67,7 +63,6 @@ export default function TodoForm() {
           추가하기
         </button>
       </form>
-      <MakeList list={list} setList={setList} />
     </>
   );
 }

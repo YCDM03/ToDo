@@ -1,4 +1,4 @@
-export default function MakeItem({ list, deleteTodo, changeDone }) {
+export default function TodoItem({ list, deleteTodo, changeDone }) {
   return list.map((item) => {
     const { id, title, content, isDone } = item;
     return (

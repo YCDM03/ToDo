@@ -1,7 +1,10 @@
 import "./App.css";
 import TodoForm from "./components/TodoForm";
+import TodoList from "./components/TodoList";
+import { useState } from "react";
 
 function App() {
+  const [list, setList] = useState([]);
   return (
     <div
       className="Layout"
@@ -17,7 +20,8 @@ function App() {
         background: "#1a4568",
       }}
     >
-      <TodoForm />
+      <TodoForm list={list} setList={setList} />
+      <TodoList list={list} setList={setList} />
     </div>
   );
 }

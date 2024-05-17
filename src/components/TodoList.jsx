@@ -1,6 +1,6 @@
-import MakeItem from "./MakeItem";
+import TodoItem from "./TodoItem";
 
-export default function MakeList({ list, setList }) {
+export default function TodoList({ list, setList }) {
   //ul style
   const ulStyle = {
     width: "100%",
@@ -34,7 +34,7 @@ export default function MakeList({ list, setList }) {
     return (
       <ul key={subtitle + "ul"} style={ulStyle}>
         <h3 style={{ width: "100%", textAlign: "center" }}>{subtitle}</h3>
-        <MakeItem
+        <TodoItem
           list={list.filter(({ isDone }) => {
             return subtitle === "Working" ? !isDone : isDone;
           })}
