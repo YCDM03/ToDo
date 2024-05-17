@@ -1,6 +1,27 @@
-export default function TodoItem({ list, deleteTodo, changeDone }) {
-  return list.map((item) => {
+export default function TodoItem({ list, setList, subtitle }) {
+  const todos = list.filter(({ isDone }) => {
+    return subtitle === "Working" ? !isDone : isDone;
+  });
+
+  const deleteTodo = (id) => {
+    setList(
+      list.filter((e) => {
+        return e.id !== id;
+      })
+    );
+  };
+
+  const changeDone = (item) => {
+    const { id, isDone } = item;
+    const items = list.filter((e) => {
+      return e.id !== id;
+    });
+    setList([...items, { ...item, isDone: !isDone }]);
+  };
+
+  return todos.map((item) => {
     const { id, title, content, isDone } = item;
+
     return (
       <li
         style={{
