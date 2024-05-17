@@ -1,54 +1,23 @@
 import { useState } from "react";
-import MakeItem from "./MakeItem";
+import MakeList from "./MakeList";
+import { v4 as uuidv4 } from "uuid";
 
 export default function TodoForm() {
-  const initial = { id: -1, title: "test", body: "test", isDone: false };
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-  const [id, setId] = useState(0);
-  const [list, setList] = useState([initial]);
-  const subtitles = ["Working", "Done"];
+  const [list, setList] = useState([]);
 
-  //style
-  const ulStyle = {
-    width: "100%",
-    listStyle: "none",
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "start",
-  };
-  const inputStyle = { width: "17%", color: "black" };
-  //
+  const addTodo = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const title = formData.get("title");
+    const content = formData.get("content");
 
-  const addTodo = (event) => {
-    event.preventDefault();
-    if (!event.target[0].value) {
-      alert("제목을 입력해주세요");
-      return;
-    } else if (!event.target[1].value) {
-      alert("내용을 입력해주세요");
+    if (!title.trim() || !content.trim()) {
+      alert("제목과 내용을 입력해주세요.");
+      e.target.reset();
       return;
     }
-    event.target[0].value = "";
-    event.target[1].value = "";
-    setList([...list, { id, title, body, isDone: false }]);
-    setId(id + 1);
-  };
-
-  const deleteTodo = (id) => {
-    setList(
-      list.filter((e) => {
-        return e.id !== id;
-      })
-    );
-  };
-
-  const changeDone = (id, title, body, isDone) => {
-    const items = list.filter((e) => {
-      return e.id !== id;
-    });
-    setList([...items, { id, title, body, isDone: !isDone }]);
+    setList([...list, { id: uuidv4(), title, content, isDone: false }]);
+    e.target.reset();
   };
 
   return (
@@ -65,23 +34,29 @@ export default function TodoForm() {
         action=""
         onSubmit={addTodo}
       >
-        <label htmlFor="" style={{ marginLeft: "5%" }} />
-        제목
+        <label
+          htmlFor="title-input"
+          style={{ marginLeft: "5%", marginRight: "1%" }}
+        >
+          제목
+        </label>
         <input
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-          style={inputStyle}
+          id="title-input"
+          style={{ width: "17%", color: "black" }}
           type="text"
+          name="title"
         />
-        <label htmlFor="" style={{ marginLeft: "5%" }} />
-        내용
+        <label
+          htmlFor="content-input"
+          style={{ marginLeft: "5%", marginRight: "1%" }}
+        >
+          내용
+        </label>
         <input
-          style={inputStyle}
+          id="content-input"
+          style={{ width: "17%", color: "black" }}
           type="text"
-          onChange={(e) => {
-            setBody(e.target.value);
-          }}
+          name="content"
         />
         <button
           style={{
@@ -92,26 +67,7 @@ export default function TodoForm() {
           추가하기
         </button>
       </form>
-
-      {subtitles.map((subtitle) => {
-        return (
-          <ul key={subtitle + "ul"} style={ulStyle}>
-            <div
-              key={subtitle + "div"}
-              style={{ width: "100%", textAlign: "center" }}
-            >
-              <h3>{subtitle}</h3>
-            </div>
-            <MakeItem
-              list={list.filter(({ isDone }) => {
-                return subtitle === "Working" ? !isDone : isDone;
-              })}
-              deleteTodo={deleteTodo}
-              changeDone={changeDone}
-            />
-          </ul>
-        );
-      })}
+      <MakeList list={list} setList={setList} />
     </>
   );
 }

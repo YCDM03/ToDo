@@ -1,5 +1,6 @@
 export default function MakeItem({ list, deleteTodo, changeDone }) {
-  return list.map(({ id, title, body, isDone }) => {
+  return list.map((item) => {
+    const { id, title, content, isDone } = item;
     return (
       <li
         style={{
@@ -10,10 +11,10 @@ export default function MakeItem({ list, deleteTodo, changeDone }) {
           display: "flex",
           flexDirection: "column",
         }}
-        key={"list" + id}
+        key={id}
       >
         <h3 style={{ marginTop: "5px" }}>{title}</h3>
-        <p>{body}</p>
+        <p>{content}</p>
         <div style={{ width: "100%", marginTop: "auto" }}>
           <button
             style={{ width: "50%" }}
@@ -26,7 +27,7 @@ export default function MakeItem({ list, deleteTodo, changeDone }) {
           <button
             style={{ width: "50%" }}
             onClick={() => {
-              changeDone(id, title, body, isDone);
+              changeDone(item);
             }}
           >
             {isDone ? "취소" : "완료"}
