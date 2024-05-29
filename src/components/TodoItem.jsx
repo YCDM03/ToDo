@@ -1,8 +1,4 @@
-export default function TodoItem({ list, setList, subtitle }) {
-  const todos = list.filter(({ isDone }) => {
-    return subtitle === "Working" ? !isDone : isDone;
-  });
-
+export default function TodoItem({ filteredList, list, setList }) {
   const deleteTodo = (id) => {
     setList(
       list.filter((e) => {
@@ -19,7 +15,7 @@ export default function TodoItem({ list, setList, subtitle }) {
     setList([...items, { ...item, isDone: !isDone }]);
   };
 
-  return todos.map((item) => {
+  return filteredList.map((item) => {
     const { id, title, content, isDone } = item;
 
     return (
