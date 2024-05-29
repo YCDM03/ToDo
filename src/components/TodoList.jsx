@@ -29,7 +29,6 @@ export default function TodoList({ list, setList }) {
             <TodoItem
               filteredList={subtitle === "Working" ? workingList : doneList}
               list={list}
-              subtitle={subtitle}
               setList={setList}
             />
           </ul>
