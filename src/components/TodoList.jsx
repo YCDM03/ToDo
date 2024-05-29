@@ -28,7 +28,6 @@ export default function TodoList({ list, setList }) {
             <h3 style={{ width: "100%", textAlign: "center" }}>{subtitle}</h3>
             <TodoItem
               filteredList={subtitle === "Working" ? workingList : doneList}
-              list={list}
               setList={setList}
             />
           </ul>

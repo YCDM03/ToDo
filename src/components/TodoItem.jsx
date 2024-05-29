@@ -1,18 +1,22 @@
-export default function TodoItem({ filteredList, list, setList }) {
+export default function TodoItem({ filteredList, setList }) {
   const deleteTodo = (id) => {
-    setList(
-      list.filter((e) => {
+    setList((prev) => {
+      return prev.filter((e) => {
         return e.id !== id;
-      })
-    );
+      });
+    });
   };
 
   const changeDone = (item) => {
     const { id, isDone } = item;
-    const items = list.filter((e) => {
-      return e.id !== id;
+    setList((prev) => {
+      return [
+        ...prev.filter((e) => {
+          return e.id !== id;
+        }),
+        { ...item, isDone: !isDone },
+      ];
     });
-    setList([...items, { ...item, isDone: !isDone }]);
   };
 
   return filteredList.map((item) => {
