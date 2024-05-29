@@ -20,7 +20,6 @@ export default function TodoList({ list, setList }) {
   };
 
   const subtitles = ["Working", "Done"];
-
   return (
     <>
       {subtitles.map((subtitle) => {
@@ -36,7 +35,6 @@ export default function TodoList({ list, setList }) {
           </ul>
         );
       })}
-      ;
     </>
   );
 }
